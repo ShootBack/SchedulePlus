@@ -1,4 +1,4 @@
-package com.shootback.scheduleplus
+package com.shootback.scheduleplus.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
