@@ -1,6 +1,6 @@
 package com.shootback.scheduleplus.data
 
-import android.content.Context
+import android.app.Application
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -32,7 +32,7 @@ abstract class AppDatabase : RoomDatabase() {
         private var database: AppDatabase? = null
         private val LOCK = Any()
         private const val DB_NAME = "schedule_plus_database"
-        fun getInstance(context: Context): AppDatabase {
+        fun getInstance(application: Application): AppDatabase {
             database?.let {
                 return it
             }
@@ -41,7 +41,7 @@ abstract class AppDatabase : RoomDatabase() {
                     return it
                 }
                 val db = Room.databaseBuilder(
-                    context.applicationContext,
+                    application.applicationContext,
                     AppDatabase::class.java,
                     DB_NAME
                 ).build()

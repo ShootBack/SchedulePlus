@@ -14,7 +14,7 @@ interface SubjectDao {
     suspend fun insertSubject(subject: SubjectEntity)
 
     @Query("SELECT * FROM subjects WHERE id = :subjectId LIMIT 1")
-    fun getSubjectById(subjectId: Int): SubjectEntity
+    suspend fun getSubjectById(subjectId: Int): SubjectEntity
 
     @Query("DELETE FROM subjects WHERE id = :subjectId")
     suspend fun deleteSubjectById(subjectId: Int)
@@ -32,7 +32,7 @@ interface NoteDao {
     suspend fun insertNote(note: NoteEntity)
 
     @Query("SELECT * FROM notes WHERE id = :noteId LIMIT 1")
-    fun getNoteById(noteId: Int): NoteEntity
+    suspend fun getNoteById(noteId: Int): NoteEntity
 
     @Query("DELETE FROM notes WHERE id = :noteId")
     suspend fun deleteNoteById(noteId: Int)
@@ -44,7 +44,7 @@ interface WeekDao {
     suspend fun insertWeek(week: WeekEntity)
 
     @Query("SELECT * FROM weeks WHERE id = :weekId LIMIT 1")
-    fun getWeekById(weekId: Int): WeekEntity
+    suspend fun getWeekById(weekId: Int): WeekEntity
 
     @Query("DELETE FROM weeks WHERE id = :weekId")
     suspend fun deleteWeekById(weekId: Int)
@@ -57,7 +57,7 @@ interface WeekDao {
 interface DayDao {
 
     @Query("SELECT * FROM days WHERE id = :dayId LIMIT 1")
-    fun getDayById(dayId: Int): DayEntity
+    suspend fun getDayById(dayId: Int): DayEntity
 
     @Query("SELECT * FROM subjects WHERE dayId = :dayId")
     fun getAllSubjects(dayId: Int): LiveData<List<SubjectEntity>>
@@ -72,7 +72,7 @@ interface ScheduleDao {
     suspend fun insertSchedule(schedule: ScheduleEntity)
 
     @Query("SELECT * FROM schedules WHERE id = :scheduleId LIMIT 1")
-    fun getScheduleById(scheduleId: Int): ScheduleEntity
+    suspend fun getScheduleById(scheduleId: Int): ScheduleEntity
 
     @Query("DELETE FROM schedules WHERE id = :scheduleId")
     suspend fun deleteScheduleById(scheduleId: Int)

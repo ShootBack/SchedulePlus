@@ -1,6 +1,6 @@
 package com.shootback.scheduleplus.data.repositories
 
-import android.content.Context
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.shootback.scheduleplus.data.AppDatabase
@@ -10,8 +10,8 @@ import com.shootback.scheduleplus.domain.schedule.Schedule
 import com.shootback.scheduleplus.domain.schedule.ScheduleRepository
 import com.shootback.scheduleplus.domain.week.Week
 
-class ScheduleRepositoryImpl(context: Context): ScheduleRepository {
-    private val scheduleDao = AppDatabase.getInstance(context).scheduleDao()
+class ScheduleRepositoryImpl(application: Application): ScheduleRepository {
+    private val scheduleDao = AppDatabase.getInstance(application).scheduleDao()
 
     override suspend fun addScheduleItem(scheduleItem: Schedule) {
         scheduleDao.insertSchedule(ScheduleMapper.toEntity(scheduleItem))
@@ -21,16 +21,12 @@ class ScheduleRepositoryImpl(context: Context): ScheduleRepository {
         scheduleDao.deleteScheduleById(scheduleItem.id)
     }
 
-    override suspend fun editScheduleItem(scheduleItem: Schedule) {
-        scheduleDao.insertSchedule(ScheduleMapper.toEntity(scheduleItem))
-    }
-
-    override fun getScheduleItem(scheduleItemId: Int): Schedule
+    override suspend fun getScheduleItem(scheduleItemId: Int): Schedule
     = ScheduleMapper.toModel(scheduleDao.getScheduleById(scheduleItemId))
 
     override fun getScheduleList(): LiveData<List<Schedule>>
     = scheduleDao.getAllSchedules().map { ScheduleMapper.toModelList(it) }
 
-    override fun getScheduleListOfWeeks(scheduleItemId: Schedule): LiveData<List<Week>>
-    = scheduleDao.getAllWeeks(scheduleItemId.id).map { WeekMapper.toModelList(it) }
+    override fun getScheduleListOfWeeks(scheduleItemId: Int): LiveData<List<Week>>
+    = scheduleDao.getAllWeeks(scheduleItemId).map { WeekMapper.toModelList(it) }
 }

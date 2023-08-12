@@ -1,6 +1,6 @@
 package com.shootback.scheduleplus.domain.subject
 
-class Subject(
+data class Subject(
     val id: Int,
     val name: String,
     val location: String,

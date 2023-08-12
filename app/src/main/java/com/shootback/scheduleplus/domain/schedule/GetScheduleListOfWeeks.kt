@@ -5,6 +5,6 @@ import com.shootback.scheduleplus.domain.week.Week
 
 class GetScheduleListOfWeeks(private val scheduleRepository: ScheduleRepository) {
     fun getScheduleListOfWeeks(scheduleItemId: Int) : LiveData<List<Week>> {
-        return scheduleRepository.getScheduleListOfWeeks(scheduleRepository.getScheduleItem(scheduleItemId))
+        return scheduleRepository.getScheduleListOfWeeks(scheduleItemId)
     }
 }

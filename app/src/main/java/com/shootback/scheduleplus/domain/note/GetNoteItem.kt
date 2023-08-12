@@ -1,7 +1,7 @@
 package com.shootback.scheduleplus.domain.note
 
 class GetNoteItem(private val noteRepository: NoteRepository) {
-    fun getNoteItem(noteItemId: Int): Note {
+    suspend fun getNoteItem(noteItemId: Int): Note {
         return noteRepository.getNoteItem(noteItemId)
     }
 }
