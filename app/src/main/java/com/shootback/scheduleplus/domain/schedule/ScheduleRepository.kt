@@ -6,8 +6,7 @@ import com.shootback.scheduleplus.domain.week.Week
 interface ScheduleRepository {
     suspend fun addScheduleItem(scheduleItem: Schedule)
     suspend fun deleteScheduleItem(scheduleItem: Schedule)
-    suspend fun editScheduleItem(scheduleItem: Schedule)
-    fun getScheduleItem(scheduleItemId: Int): Schedule
+    suspend fun getScheduleItem(scheduleItemId: Int): Schedule
     fun getScheduleList(): LiveData<List<Schedule>>
-    fun getScheduleListOfWeeks(scheduleItemId: Schedule): LiveData<List<Week>>
+    fun getScheduleListOfWeeks(scheduleItemId: Int): LiveData<List<Week>>
 }

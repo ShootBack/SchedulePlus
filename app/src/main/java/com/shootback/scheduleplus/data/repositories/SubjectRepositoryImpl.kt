@@ -1,6 +1,6 @@
 package com.shootback.scheduleplus.data.repositories
 
-import android.content.Context
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.map
 import com.shootback.scheduleplus.data.AppDatabase
@@ -10,8 +10,8 @@ import com.shootback.scheduleplus.domain.note.Note
 import com.shootback.scheduleplus.domain.subject.Subject
 import com.shootback.scheduleplus.domain.subject.SubjectRepository
 
-class SubjectRepositoryImpl(context: Context): SubjectRepository {
-    private val subjectDao = AppDatabase.getInstance(context).subjectDao()
+class SubjectRepositoryImpl(application: Application): SubjectRepository {
+    private val subjectDao = AppDatabase.getInstance(application).subjectDao()
 
     override suspend fun addSubjectItem(subjectItem: Subject) {
         subjectDao.insertSubject(SubjectMapper.toEntity(subjectItem))
@@ -21,13 +21,9 @@ class SubjectRepositoryImpl(context: Context): SubjectRepository {
         subjectDao.deleteSubjectById(subjectItem.id)
     }
 
-    override suspend fun editSubjectItem(subjectItem: Subject) {
-        subjectDao.insertSubject(SubjectMapper.toEntity(subjectItem))
-    }
-
-    override fun getSubjectItem(subjectItemId: Int): Subject
+    override suspend fun getSubjectItem(subjectItemId: Int): Subject
     = SubjectMapper.toModel(subjectDao.getSubjectById(subjectItemId))
 
-    override fun getSubjectListOfNotes(subjectItem: Subject): LiveData<List<Note>>
-    = subjectDao.getAllNotes(subjectItem.id).map { NoteMapper.toModelList(it) }
+    override fun getSubjectListOfNotes(subjectItemId: Int): LiveData<List<Note>>
+    = subjectDao.getAllNotes(subjectItemId).map { NoteMapper.toModelList(it) }
 }

@@ -6,7 +6,7 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "weeks")
 data class WeekEntity(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int = 0,
     val number: Int,
     val scheduleId: Int
 )
