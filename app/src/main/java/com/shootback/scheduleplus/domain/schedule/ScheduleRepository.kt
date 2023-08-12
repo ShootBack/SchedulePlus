@@ -1,11 +1,13 @@
 package com.shootback.scheduleplus.domain.schedule
 
+import androidx.lifecycle.LiveData
 import com.shootback.scheduleplus.domain.week.Week
 
 interface ScheduleRepository {
-    fun addScheduleItem(scheduleItem: Schedule)
-    fun deleteScheduleItem(scheduleItem: Schedule)
-    fun editScheduleItem(scheduleItem: Schedule)
+    suspend fun addScheduleItem(scheduleItem: Schedule)
+    suspend fun deleteScheduleItem(scheduleItem: Schedule)
+    suspend fun editScheduleItem(scheduleItem: Schedule)
     fun getScheduleItem(scheduleItemId: Int): Schedule
-    fun getScheduleListOfWeeks(scheduleItemId: Schedule): List<Week>
+    fun getScheduleList(): LiveData<List<Schedule>>
+    fun getScheduleListOfWeeks(scheduleItemId: Schedule): LiveData<List<Week>>
 }
